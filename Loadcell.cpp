@@ -8,6 +8,7 @@
 int HX711_dout = 4; //mcu > HX711 dout pin
 int HX711_sck = 5; //mcu > HX711 sck pin
 
+Servo servoMotor;
 //HX711 constructor:
 HX711_ADC LoadCell(HX711_dout, HX711_sck);
 
@@ -42,6 +43,10 @@ void SetupTheLoadCell(int doutPin,int sckPin)
       LoadCell.setCalFactor(calibrationValue); // set calibration value (float)
       Serial.println("Startup is complete");
     }
+}
+void SetupTheServo(int servPin)
+{
+  servoMotor.attach(servPin);
 }
 float GetTheMass()
 {
@@ -80,7 +85,8 @@ void CheckUserDidDrink(float mass)
   {
       if(mass < 450)
       {
-         Serial.println("Suyu içmiş helal oluma");
+         Serial.println("Suyu içmiş helal oluma al sana bir bardak daha");
+         PoorTheWater();
       }
       else
       {
@@ -92,6 +98,13 @@ void CheckUserDidDrink(float mass)
     Serial.println("Bardak yok mq");
   }
   delay(100);
+}
+
+void PoorTheWater()
+{
+  servoMotor.write(180);
+  delay(3000);
+  servoMotor.write(0);
 }
 bool CheckIsThereAGlass(float currentMass)
 {
