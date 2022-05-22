@@ -1,2 +1,2 @@
 # Table-Assistent
-This project made for Microprocessor lesson with Akifcan Özbulut
+This project made for INF-340 Microprosessors cours with Akifcan Özbulut
