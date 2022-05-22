@@ -95,7 +95,7 @@ void CheckUserDidDrink(float mass)
   }
   else
   {
-    Serial.println("Bardak yok mq");
+    Serial.println("Bardak yok");
   }
   delay(100);
 }
