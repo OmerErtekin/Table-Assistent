@@ -3,8 +3,8 @@
 #include <Arduino.h>
 
 
-void CheckTheLight(int roleOut);
+void CheckTheLight();
 void SetRoleAtStart(int roleOut);
-void SetTheLamp(bool willOpen,int roleOut);
+void SetTheLamp(bool willOpen);
 
 #endif

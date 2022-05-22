@@ -18,7 +18,6 @@ void setup()
   SetUltrasonikSensors(trigPin,echoPin,trigPin2,echoPin2);
   SetupTheServo(servoPin);
   time1 = millis();
-  Serial.println(time1);
 }
 
 void loop()
@@ -26,12 +25,10 @@ void loop()
   time2 = millis();
   float mass = GetTheMass();
   //PrintTheMass(mass);
-  if((time2-time1)/ 1000 > 10)
+  if((time2-time1)/ 1000 > 3600)
   {
     CheckUserDidDrink(mass);
     time1 = time2;
   }
-  //Serial.println((time2-time1)/1000);
-
-  //delay(1000);
+  CheckTheLight();
 }

@@ -1,38 +1,44 @@
 #include "LedControl.h"
 bool isOpened = false;
+int roleIn;
 
-void CheckTheLight(int roleOut)
+void CheckTheLight()
 {
     int light = analogRead(A4);
-    Serial.println("Işık değeri : ");
-    Serial.print(light);
-    if(light > 200 && isOpened == false)
-    {
-      isOpened = true;
-      SetTheLamp(true,roleOut);
-    }
-    else
-    {
-      isOpened = false;
-      SetTheLamp(false,roleOut);
-    }
+    Serial.print("Işık değeri : ");
+    Serial.println(light);
     delay(500);
+    if(light > 20 && isOpened == false)
+    {
+
+      isOpened = true;
+      SetTheLamp(true);
+      return;
+    }
+    else if(isOpened == true && light < 18)
+    {
+
+      isOpened = false;
+      SetTheLamp(false);
+      return;
+    }
 }
 
-void SetTheLamp(bool willOpen,int roleOut)
+void SetTheLamp(bool willOpen)
 {
   if(willOpen)
   {
-    digitalWrite(roleOut,HIGH);
+    digitalWrite(roleIn,HIGH);
   }
   else
   {
-    digitalWrite(roleOut,LOW);
+    digitalWrite(roleIn,LOW);
   }
 }
 
 void SetRoleAtStart(int roleOut)
 {
+  roleIn = roleOut;
   pinMode(roleOut,OUTPUT);
   digitalWrite(roleOut,LOW);
 }
