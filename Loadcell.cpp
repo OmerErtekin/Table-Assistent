@@ -74,9 +74,33 @@ float GetTheMass()
       Serial.println("Tare complete");
   }
 }
-
-void PrintTheMass()
+void CheckUserDidDrink()
+{
+  float mass = GetTheMass();
+  if(CheckIsThereAGlass(mass))
+  {
+      if(mass < 450)
+      {
+         Serial.println("Suyu içmiş helal oluma");
+      }
+      else
+      {
+        Serial.println("Suyunu iç rezil herif");
+      }
+  }
+  else
+  {
+    Serial.println("Bardak yok mq");
+  }
+  delay(100);
+}
+bool CheckIsThereAGlass(float currentMass)
+{
+  return currentMass > 350;
+}
+void PrintTheMass(float mass)
 {
   Serial.print("Current mass : ");
-  Serial.println(GetTheMass());
+  Serial.println(mass);
+  delay(100);
 }
