@@ -22,12 +22,13 @@ void setup()
 void loop()
 {
   time2 = millis();
+  float mass = GetTheMass();
   if((time2-time1)/ 1000 > 30)
   {
-    Serial.println("30 saniye oldu");
+    CheckUserDidDrink(mass);
     time1 = time2;
   }
   //Serial.println((time2-time1)/1000);
-  CheckUserDidDrink();
+
   //delay(1000);
 }

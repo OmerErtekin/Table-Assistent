@@ -74,9 +74,8 @@ float GetTheMass()
       Serial.println("Tare complete");
   }
 }
-void CheckUserDidDrink()
+void CheckUserDidDrink(float mass)
 {
-  float mass = GetTheMass();
   if(CheckIsThereAGlass(mass))
   {
       if(mass < 450)

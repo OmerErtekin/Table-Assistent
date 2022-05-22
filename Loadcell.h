@@ -4,7 +4,7 @@
 
 void SetupTheLoadCell(int doutPin,int sckPin);
 float GetTheMass();
-void CheckUserDidDrink();
+void CheckUserDidDrink(float mass);
 bool CheckIsThereAGlass(float currentMass);
 void PrintTheMass(float mass);
 #endif
