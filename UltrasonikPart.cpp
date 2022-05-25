@@ -1,39 +1,33 @@
 #include "UltrasonikPart.h"
-int GetDistance(int trigPin,int ecoPin,int trigPin2,int ecoPin2)
-{
-  int distance1 = GetByEachSensor(trigPin,ecoPin);
-  delayMicroseconds(10);
-  int distance2 = GetByEachSensor(trigPin2,ecoPin2);
-  return (int)distance1 - (int)distance2;
-}
+#include "Loadcell.h"
 
-int GetByEachSensor(int trigPin,int ecoPin)
+int checkCount = 0;
+int trPin,ecPin;
+
+int GetDistance()
 {
   long duration,distance;
 
-  digitalWrite(trigPin,LOW);
+  digitalWrite(trPin,LOW);
   delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(trPin, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-
-  duration = pulseIn(ecoPin, HIGH);
+  digitalWrite(trPin, LOW);
+  
+  duration = pulseIn(ecPin, HIGH);
   distance = duration / 58.2;
   return (int)distance;
 }
 
-void UseTheBuzzer(int buzzerPin,float second,bool willOpen)
+bool CheckIsThereAHuman()
 {
-  if(willOpen)
-    digitalWrite(buzzerPin,HIGH);
-  else
-    digitalWrite(buzzerPin,LOW);
+  Serial.println(GetDistance());
+  return true;
 }
-
-void SetUltrasonikSensors(int trigPin,int ecoPin,int trigPin2,int ecoPin2)
+void SetUltrasonikSensors(int trigPin,int ecoPin)
 {
   pinMode(trigPin,OUTPUT);
   pinMode(ecoPin,INPUT);
-  pinMode(trigPin2,OUTPUT);
-  pinMode(ecoPin2,INPUT);
+  trPin = trigPin;
+  ecPin = ecoPin;
 }

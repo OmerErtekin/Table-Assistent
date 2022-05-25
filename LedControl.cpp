@@ -5,17 +5,18 @@ int roleIn;
 void CheckTheLight()
 {
     int light = analogRead(A4);
+    
     Serial.print("Işık değeri : ");
     Serial.println(light);
-    delay(500);
-    if(light > 20 && isOpened == false)
+    /*delay(50);*/
+    if(light < 500 && isOpened == false)
     {
 
       isOpened = true;
       SetTheLamp(true);
       return;
     }
-    else if(isOpened == true && light < 18)
+    else if(isOpened == true && light > 700)
     {
 
       isOpened = false;

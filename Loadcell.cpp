@@ -7,7 +7,7 @@
 //pins:
 int HX711_dout = 4; //mcu > HX711 dout pin
 int HX711_sck = 5; //mcu > HX711 sck pin
-
+int buzzerPin;
 Servo servoMotor;
 //HX711 constructor:
 HX711_ADC LoadCell(HX711_dout, HX711_sck);
@@ -44,9 +44,18 @@ void SetupTheLoadCell(int doutPin,int sckPin)
       Serial.println("Startup is complete");
     }
 }
+
+void SetupTheBuzzer(int buzzPin)
+{
+    buzzerPin = buzzPin;
+    pinMode(buzzerPin, OUTPUT);
+    noTone(buzzerPin);
+    Serial.println("setup");
+}
 void SetupTheServo(int servPin)
 {
   servoMotor.attach(servPin);
+  servoMotor.write(0);
 }
 float GetTheMass()
 {
@@ -85,26 +94,46 @@ void CheckUserDidDrink(float mass)
   {
       if(mass < 450)
       {
-         Serial.println("Suyu içmiş helal oluma al sana bir bardak daha");
+         Serial.println("Suyu içmiş al sana bir bardak daha");
+         PlayTheBuzzer(5000);
          PoorTheWater();
       }
       else
       {
-        Serial.println("Suyunu iç rezil herif");
+        Serial.println("Suyunu iç hemen");
+        PlayTheBuzzer(10000);
       }
   }
   else
   {
+    PlayTheBuzzer(1000);
     Serial.println("Bardak yok");
   }
   delay(100);
 }
-
+void PlayTheBuzzer(int buzTone)
+{
+  for(int i = 0;i<3;i++)
+  {
+    tone(buzzerPin, buzTone);
+    delay(500);
+    noTone(buzzerPin);
+    delay(500);
+  }  
+}
 void PoorTheWater()
 {
-  servoMotor.write(180);
-  delay(3000);
-  servoMotor.write(0);
+    servoMotor.write(16);
+    delay(500);
+    servoMotor.write(32);
+    delay(500);
+    servoMotor.write(48);
+    delay(8000);
+    servoMotor.write(32);
+    delay(500);
+    servoMotor.write(16);
+    delay(500);
+    servoMotor.write(0);
 }
 bool CheckIsThereAGlass(float currentMass)
 {
